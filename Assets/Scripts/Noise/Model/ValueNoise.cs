@@ -11,6 +11,7 @@
 		protected override float Value1D(Vector3 point, NoiseStruct noiseStruct)
 		{
 			point *= noiseStruct.frequency;
+			//Calculate Integer Lattice Points and interpolants t
 			int ix0 = Mathf.FloorToInt(point.x);
 			float t = point.x - ix0;
 			ix0 &= HashMask;
@@ -24,6 +25,7 @@
 		protected override float Value2D(Vector3 point, NoiseStruct noiseStruct)
 		{
 			point *= noiseStruct.frequency;
+			//Calculate Integer Lattice Points and interpolants t
 			int ix0 = Mathf.FloorToInt(point.x);
 			int iy0 = Mathf.FloorToInt(point.y);
 			float tx = point.x - ix0;
@@ -48,6 +50,7 @@
 		protected override float Value3D(Vector3 point, NoiseStruct noiseStruct)
 		{
 			point *= noiseStruct.frequency;
+			//Calculate Integer Lattice Points and interpolants t
 			int ix0 = Mathf.FloorToInt(point.x);
 			int iy0 = Mathf.FloorToInt(point.y);
 			int iz0 = Mathf.FloorToInt(point.z);

@@ -14,6 +14,7 @@ namespace Noise.Model
 		protected override float Value1D(Vector3 point, NoiseStruct noiseStruct)
 		{
 			point *= noiseStruct.frequency;
+			//Calculate Integer Lattice Points
 			int ix = Mathf.FloorToInt(point.x);
 			ix &= HashMask;
 			return NoiseUtils.PerlinHash[ix] * (1f / HashMask);
@@ -22,6 +23,7 @@ namespace Noise.Model
 		protected override float Value2D(Vector3 point, NoiseStruct noiseStruct)
 		{
 			point *= noiseStruct.frequency;
+			//Calculate Integer Lattice Points
 			int ix = Mathf.FloorToInt(point.x);
 			int iy = Mathf.FloorToInt(point.y);
 			ix &= HashMask;
@@ -32,6 +34,7 @@ namespace Noise.Model
 		protected override float Value3D(Vector3 point, NoiseStruct noiseStruct)
 		{
 			point *= noiseStruct.frequency;
+			//Calculate Integer Lattice Points
 			int ix = Mathf.FloorToInt(point.x);
 			int iy = Mathf.FloorToInt(point.y);
 			int iz = Mathf.FloorToInt(point.z);

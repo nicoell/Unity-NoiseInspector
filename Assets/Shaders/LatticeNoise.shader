@@ -54,16 +54,19 @@
 			
 			float4 frag (VertexOutput IN) : SV_Target
 			{
-				float3 ints = floor(IN.uvw);
-				ints = ints / 256;
+				//Calculate Integer Lattice Points
+				float3 i0 = floor(IN.uvw);
+				//Move Integer Lattice Points between 0 and 1 for HashTexture lookup
+				i0 /= 256;
+
 				#if defined(RENDERTYPE_1D)
-					float noise = tex2D(_PerlinHash, ints.x).r;
+					float noise = tex2D(_PerlinHash, i0.x).r;
 				#endif
 				#if defined(RENDERTYPE_2D)
-					float noise = tex2D(_PerlinHash, tex2D(_PerlinHash, ints.x).r + ints.y).r;
+					float noise = tex2D(_PerlinHash, tex2D(_PerlinHash, i0.x).r + i0.y).r;
 				#endif
 				#if defined(RENDERTYPE_3D)
-					float noise = tex2D(_PerlinHash, tex2D(_PerlinHash, tex2D(_PerlinHash, ints.x).r + ints.y).r + ints.z).r;
+					float noise = tex2D(_PerlinHash, tex2D(_PerlinHash, tex2D(_PerlinHash, i0.x).r + i0.y).r + i0.z).r;
 				#endif
 				return _Amplitude * float4(noise, noise, noise, 1);
 			}
