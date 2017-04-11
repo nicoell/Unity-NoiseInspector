@@ -25,6 +25,7 @@
 
 			uniform sampler2D _Splerp;
 			uniform sampler2D _PerlinHash;
+			uniform float4x4 _WorldTransform;
 			uniform float _Resolution;
 			uniform float _Frequency;
 			uniform float _Amplitude;
@@ -55,6 +56,7 @@
 				OUT.position = UnityObjectToClipPos(IN.localPosition);
 				OUT.uv = IN.uv;
 				OUT.uvw = IN.localPosition * _Resolution * _Frequency;
+				OUT.uvw = mul(_WorldTransform, OUT.uvw);
 				return OUT;
 			}
 

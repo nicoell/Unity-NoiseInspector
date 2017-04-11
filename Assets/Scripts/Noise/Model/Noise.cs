@@ -68,6 +68,8 @@
 		{
 			NoisePropertyBlock.SetTexture("_Splerp", noiseStruct.splerpTexture);
 			NoisePropertyBlock.SetTexture("_PerlinHash", NoiseUtils.PerlinHashTexture);
+			NoisePropertyBlock.SetMatrix("_WorldTransform",
+				noiseStruct.worldTransform ? noiseStruct.worldTransform.localToWorldMatrix : Matrix4x4.identity);
 			NoisePropertyBlock.SetFloat("_Resolution", noiseStruct.resolution);
 			NoisePropertyBlock.SetFloat("_Frequency", noiseStruct.frequency);
 			NoisePropertyBlock.SetFloat("_Amplitude", noiseStruct.amplitude);
