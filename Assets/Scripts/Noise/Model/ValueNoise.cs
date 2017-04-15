@@ -13,13 +13,13 @@
 			point *= noiseStruct.frequency;
 			//Calculate Integer Lattice Points and interpolants t
 			int ix0 = Mathf.FloorToInt(point.x);
-			float t = point.x - ix0;
+			float t = NoiseUtils.Splerp(ref noiseStruct.splerp, 0f, 1f, point.x - ix0);
 			ix0 &= HashMask;
 			int ix1 = ix0 + 1;
 
 			int h0 = NoiseUtils.PerlinHash[ix0];
 			int h1 = NoiseUtils.PerlinHash[ix1];
-			return NoiseUtils.Splerp(ref noiseStruct.splerp, h0, h1, t) * (1f / HashMask);
+			return Mathf.Lerp(h0, h1, t) * (1f / HashMask);
 		}
 
 		protected override float Value2D(Vector3 point, NoiseStruct noiseStruct)
@@ -28,8 +28,8 @@
 			//Calculate Integer Lattice Points and interpolants t
 			int ix0 = Mathf.FloorToInt(point.x);
 			int iy0 = Mathf.FloorToInt(point.y);
-			float tx = point.x - ix0;
-			float ty = point.y - iy0;
+			float tx = NoiseUtils.Splerp(ref noiseStruct.splerp, 0f, 1f, point.x - ix0);
+			float ty = NoiseUtils.Splerp(ref noiseStruct.splerp, 0f, 1f, point.y - iy0);
 			ix0 &= HashMask;
 			iy0 &= HashMask;
 			int ix1 = ix0 + 1;
@@ -43,8 +43,8 @@
 			int h11 = NoiseUtils.PerlinHash[h1 + iy1];
 
 			return
-				NoiseUtils.Splerp(ref noiseStruct.splerp, NoiseUtils.Splerp(ref noiseStruct.splerp, h00, h10, tx),
-					NoiseUtils.Splerp(ref noiseStruct.splerp, h01, h11, tx), ty) * (1f / HashMask);
+				Mathf.Lerp(Mathf.Lerp(h00, h10, tx),
+					Mathf.Lerp(h01, h11, tx), ty) * (1f / HashMask);
 		}
 
 		protected override float Value3D(Vector3 point, NoiseStruct noiseStruct)
@@ -54,9 +54,9 @@
 			int ix0 = Mathf.FloorToInt(point.x);
 			int iy0 = Mathf.FloorToInt(point.y);
 			int iz0 = Mathf.FloorToInt(point.z);
-			float tx = point.x - ix0;
-			float ty = point.y - iy0;
-			float tz = point.z - iz0;
+			float tx = NoiseUtils.Splerp(ref noiseStruct.splerp, 0f, 1f, point.x - ix0);
+			float ty = NoiseUtils.Splerp(ref noiseStruct.splerp, 0f, 1f, point.y - iy0);
+			float tz = NoiseUtils.Splerp(ref noiseStruct.splerp, 0f, 1f, point.z - iz0);
 			ix0 &= HashMask;
 			iy0 &= HashMask;
 			iz0 &= HashMask;
@@ -79,11 +79,11 @@
 			int h110 = NoiseUtils.PerlinHash[h11 + iz0];
 			int h111 = NoiseUtils.PerlinHash[h11 + iz1];
 
-			return NoiseUtils.Splerp(ref noiseStruct.splerp,
-				       NoiseUtils.Splerp(ref noiseStruct.splerp, NoiseUtils.Splerp(ref noiseStruct.splerp, h000, h100, tx),
-					       NoiseUtils.Splerp(ref noiseStruct.splerp, h010, h110, tx), ty),
-				       NoiseUtils.Splerp(ref noiseStruct.splerp, NoiseUtils.Splerp(ref noiseStruct.splerp, h001, h101, tx),
-					       NoiseUtils.Splerp(ref noiseStruct.splerp, h011, h111, tx), ty),
+			return Mathf.Lerp(
+					   Mathf.Lerp(Mathf.Lerp(h000, h100, tx),
+					       Mathf.Lerp(h010, h110, tx), ty),
+				       Mathf.Lerp(Mathf.Lerp(h001, h101, tx),
+					       Mathf.Lerp(h011, h111, tx), ty),
 				       tz) * (1f / HashMask);
 		}
 	}

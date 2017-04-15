@@ -65,7 +65,7 @@
 				//Calculate Integer Lattice Points and interpolants t
 				float3 i0 = floor(IN.uvw);
 				float3 i1 = i0 + 1;
-				float3 t = IN.uvw - i0;
+				float3 t = splerp(0, 1, IN.uvw - i0);
 				//Move Integer Lattice Points between 0 and 1 for HashTexture lookup
 				i0 /= 256;
 				i1 /= 256;
@@ -90,20 +90,20 @@
 					float h111 = tex2D(_PerlinHash, h11 + i1.z);
 				#endif
 				#if defined(RENDERTYPE_1D)	
-					float noise = splerp(h0, h1, t.x);
+					float noise = lerp(h0, h1, t.x);
 				#endif
 				#if defined(RENDERTYPE_2D)
-					float noise = splerp(splerp(h00, h10, t.x), splerp(h01, h11, t.x), t.y);
+					float noise = lerp(lerp(h00, h10, t.x), lerp(h01, h11, t.x), t.y);
 				#endif
 				#if defined(RENDERTYPE_3D)
-					float noise = splerp(
-						splerp(
-							splerp(h000, h100, t.x),
-							splerp(h010, h110, t.x),
+					float noise = lerp(
+						lerp(
+							lerp(h000, h100, t.x),
+							lerp(h010, h110, t.x),
 							t.y),
-						splerp(
-							splerp(h001, h101, t.x),
-							splerp(h011, h111, t.x),
+						lerp(
+							lerp(h001, h101, t.x),
+							lerp(h011, h111, t.x),
 							t.y),
 						t.z);
 				#endif

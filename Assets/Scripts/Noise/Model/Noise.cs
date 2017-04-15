@@ -37,6 +37,7 @@
 
 		public virtual void UpdateNoise(Renderer renderer, NoiseStruct noiseStruct)
 		{
+			//TODO: Seperate this and only call when needed
 			switch (noiseStruct.renderType)
 			{
 				case RenderType.Render1D:
@@ -68,6 +69,7 @@
 		{
 			NoisePropertyBlock.SetTexture("_Splerp", noiseStruct.splerpTexture);
 			NoisePropertyBlock.SetTexture("_PerlinHash", NoiseUtils.PerlinHashTexture);
+			// TODO: worldTransform does not contain proper object position... why?
 			NoisePropertyBlock.SetMatrix("_WorldTransform",
 				noiseStruct.worldTransform ? noiseStruct.worldTransform.localToWorldMatrix : Matrix4x4.identity);
 			NoisePropertyBlock.SetFloat("_Resolution", noiseStruct.resolution);
