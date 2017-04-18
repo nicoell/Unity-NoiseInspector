@@ -65,7 +65,14 @@
 				//Calculate Integer Lattice Points and interpolants t
 				float3 i0 = floor(IN.uvw);
 				float3 i1 = i0 + 1;
-				float3 t = splerp(0, 1, IN.uvw - i0);
+				float3 t = IN.uvw - i0;
+				t.x = tex2D(_Splerp, t.x);
+#if defined(RENDERTYPE_2D) || defined(RENDERTYPE_3D)
+				t.y = tex2D(_Splerp, t.y);
+#endif
+#if defined(RENDERTYPE_3D)
+				t.z = tex2D(_Splerp, t.z);
+#endif
 				//Move Integer Lattice Points between 0 and 1 for HashTexture lookup
 				i0 /= 256;
 				i1 /= 256;
@@ -73,6 +80,7 @@
 				//Get hash value at lattice points
 				float h0 = tex2D(_PerlinHash, i0.x).r;
 				float h1 = tex2D(_PerlinHash, i1.x).r;
+
 				#if defined(RENDERTYPE_2D) || defined(RENDERTYPE_3D)
 					float h00 = tex2D(_PerlinHash, h0 + i0.y);
 					float h01 = tex2D(_PerlinHash, h0 + i1.y);
