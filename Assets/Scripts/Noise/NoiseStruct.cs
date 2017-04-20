@@ -9,11 +9,17 @@ namespace Noise
 		Render3D
 	}
 
+	public enum Range
+	{
+		OneAroundZero, OneGreaterZero
+	}
+
 	public struct NoiseStruct
 	{
 		public Model.Noise noiseModel;
 		public AnimationCurve splerp;
 		public Texture2D splerpTexture;
+		public Range range;
 		public RenderType renderType;
 		public int resolution;
 		public float frequency;
@@ -24,6 +30,7 @@ namespace Noise
 			Model.Noise noiseModel,
 			AnimationCurve splerp,
 			Texture2D splerpTexture,
+			Range range = Range.OneAroundZero,
 			RenderType renderType = RenderType.Render2D,
 			int resolution = 512,
 			float frequency = 1.0f,
@@ -34,6 +41,7 @@ namespace Noise
 			this.noiseModel = noiseModel;
 			this.splerp = splerp;
 			this.splerpTexture = splerpTexture;
+			this.range = range;
 			this.renderType = renderType;
 			this.resolution = resolution;
 			this.frequency = frequency;

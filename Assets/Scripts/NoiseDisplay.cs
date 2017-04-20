@@ -13,6 +13,7 @@ public class NoiseDisplay : MonoBehaviour
 
 	[Header("Basic Settings")]
 	public RenderType renderType = RenderType.Render2D;
+	public Range range = Range.OneGreaterZero;
 	[Range(1, 512)]
 	public int resolution = 512;
 	[Space(5)]
@@ -182,6 +183,7 @@ public class NoiseDisplay : MonoBehaviour
 		m_noiseStruct.splerp = splerpCurve;
 		m_noiseStruct.splerpTexture = SplerpCurveTexture;
 		m_noiseStruct.renderType = renderType;
+		m_noiseStruct.range = range;
 		m_noiseStruct.resolution = resolution;
 		m_noiseStruct.frequency = frequency;
 		m_noiseStruct.amplitude = amplitude;

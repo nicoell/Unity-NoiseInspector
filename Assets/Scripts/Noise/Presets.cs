@@ -10,8 +10,9 @@ namespace Noise
         public static readonly Model.Noise WhiteNoise = RegisterPreset(new WhiteNoise(42));
         public static readonly Model.Noise LatticeNoise = RegisterPreset(new LatticeNoise());
         public static readonly Model.Noise ValueNoise = RegisterPreset(new ValueNoise());
+        public static readonly Model.Noise PerlinNoise = RegisterPreset(new PerlinNoise());
 
-        private static Model.Noise RegisterPreset(Model.Noise noiseModel)
+		private static Model.Noise RegisterPreset(Model.Noise noiseModel)
         {
             try
             {

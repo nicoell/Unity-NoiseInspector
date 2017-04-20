@@ -41,6 +41,15 @@ public static class NoiseUtils
 		}
 	}
 
+
+	public static float SmootherStep(float t)
+	{
+		return t * t * t * (t * (t * 6f - 15f) + 10f);
+	}
+
+	public static readonly float Sqr2 = Mathf.Sqrt(2f);
+
+	public static readonly int HashMask = 255;
 	public static readonly int[] PerlinHash =
 	{
 		151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225,
@@ -75,5 +84,46 @@ public static class NoiseUtils
 		81, 51, 145, 235, 249, 14, 239, 107, 49, 192, 214, 31, 181, 199, 106, 157,
 		184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254, 138, 236, 205, 93,
 		222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180
+	};
+
+	public static readonly int GradientsMask1D = 1;
+	public static readonly float[] Gradients1D =
+	{
+		1f, -1f
+	};
+
+	public static readonly int GradientsMask2D = 7;
+	public static readonly Vector2[] Gradients2D =
+	{
+		new Vector2(1f, 0f),
+		new Vector2(-1f, 0f),
+		new Vector2(0f, 1f),
+		new Vector2(0f, -1f),
+		new Vector2(1f, 1f).normalized,
+		new Vector2(-1f, 1f).normalized,
+		new Vector2(1f, -1f).normalized,
+		new Vector2(-1f, -1f).normalized
+	};
+
+	public static readonly int GradientsMask3D = 15;
+	public static readonly Vector3[] Gradients3D =
+	{
+		new Vector3(1f, 1f, 0f),
+		new Vector3(-1f, 1f, 0f),
+		new Vector3(1f, -1f, 0f),
+		new Vector3(-1f, -1f, 0f),
+		new Vector3(1f, 0f, 1f),
+		new Vector3(-1f, 0f, 1f),
+		new Vector3(1f, 0f, -1f),
+		new Vector3(-1f, 0f, -1f),
+		new Vector3(0f, 1f, 1f),
+		new Vector3(0f, -1f, 1f),
+		new Vector3(0f, 1f, -1f),
+		new Vector3(0f, -1f, -1f),
+
+		new Vector3(1f, 1f, 0f),
+		new Vector3(-1f, 1f, 0f),
+		new Vector3(0f, -1f, 1f),
+		new Vector3(0f, -1f, -1f)
 	};
 }

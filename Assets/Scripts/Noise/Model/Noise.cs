@@ -15,20 +15,41 @@
 			get { return m_noisePropertyBlock ?? (m_noisePropertyBlock = new MaterialPropertyBlock()); }
 			set { m_noisePropertyBlock = value; }
 		}
+		protected abstract Range Range { get; }
 
 		public float Value(Vector3 point, NoiseStruct noiseStruct)
 		{
+			float value;
 			switch (noiseStruct.renderType)
 			{
 				case RenderType.Render1D:
-					return Value1D(point, noiseStruct) * noiseStruct.amplitude;
+					value = Value1D(point, noiseStruct);
+					break;
 				case RenderType.Render2D:
-					return Value2D(point, noiseStruct) * noiseStruct.amplitude;
+					value = Value2D(point, noiseStruct);
+					break;
 				case RenderType.Render3D:
-					return Value3D(point, noiseStruct) * noiseStruct.amplitude;
+					value = Value3D(point, noiseStruct);
+					break;
 				default:
 					throw new ArgumentOutOfRangeException("noiseStruct", noiseStruct.renderType, "Given RenderType not supported.");
 			}
+			if (noiseStruct.range != Range)
+			{
+				switch (noiseStruct.range) {
+					case Range.OneGreaterZero:
+						//Convert to OneGreaterZero
+						value = (value / 2f) + 0.5f;
+						break;
+					case Range.OneAroundZero:
+						//Convert to OneAroundZero
+						value = (value - 0.5f) * 2f;
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+			}
+			return value * noiseStruct.amplitude;
 		}
 
 		protected abstract float Value1D(Vector3 point, NoiseStruct noiseStruct);
@@ -57,6 +78,15 @@
 					break;
 				default:
 					throw new ArgumentOutOfRangeException("noiseStruct", noiseStruct.renderType, "Given RenderType not supported.");
+			}
+			if (noiseStruct.range == Range)
+			{
+				renderer.sharedMaterial.DisableKeyword("RANGE_ADJUST");
+				renderer.sharedMaterial.EnableKeyword("RANGE_NOADJUST");
+			} else
+			{
+				renderer.sharedMaterial.EnableKeyword("RANGE_ADJUST");
+				renderer.sharedMaterial.DisableKeyword("RANGE_NOADJUST");
 			}
 			renderer.GetPropertyBlock(NoisePropertyBlock);
 

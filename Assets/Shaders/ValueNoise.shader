@@ -20,6 +20,7 @@
 			#pragma vertex vert
 			#pragma fragment frag
 			#pragma multi_compile RENDERTYPE_1D RENDERTYPE_2D RENDERTYPE_3D
+			#pragma multi_compile RANGE_ADJUST RANGE_NOADJUST
 
 			#include "UnityCG.cginc"
 
@@ -114,6 +115,9 @@
 							lerp(h011, h111, t.x),
 							t.y),
 						t.z);
+				#endif
+				#if defined(RANGE_ADJUST)
+					noise = (noise - 0.5) * 2;
 				#endif
 				return _Amplitude * float4(noise, noise, noise, 1);
 			}

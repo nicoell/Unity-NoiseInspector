@@ -11,6 +11,8 @@ namespace Noise.Model
 		public override void Reset() { }
 		protected override string ShaderPath { get { return "Noise/LatticeNoise"; } }
 
+		protected override Range Range { get { return Range.OneGreaterZero; } }
+
 		protected override float Value1D(Vector3 point, NoiseStruct noiseStruct)
 		{
 			point *= noiseStruct.frequency;
