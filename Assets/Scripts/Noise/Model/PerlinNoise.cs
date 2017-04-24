@@ -81,6 +81,7 @@ namespace Noise.Model
 			int i0X = Mathf.FloorToInt(point.x);
 			int i0Y = Mathf.FloorToInt(point.y);
 			int i0Z = Mathf.FloorToInt(point.z);
+			//Get point relative to wavelet center
 			var t0 = new Vector3(point.x - i0X, point.y - i0Y, point.z - i0Z);
 			var t1 = new Vector3(t0.x - 1f, t0.y - 1f, t0.z -1f);
 			i0X &= NoiseUtils.HashMask;
@@ -90,6 +91,7 @@ namespace Noise.Model
 			int i1Y = i0Y + 1;
 			int i1Z = i0Z + 1;
 
+			// Fold x,y,z using permuation table
 			int h0 = NoiseUtils.PerlinHash[i0X];
 			int h1 = NoiseUtils.PerlinHash[i1X];
 			int h00 = NoiseUtils.PerlinHash[h0 + i0Y];
@@ -126,6 +128,8 @@ namespace Noise.Model
 			//t0.x = NoiseUtils.Splerp(ref noiseStruct.splerp, 0f, 1f, t0.x);
 			//t0.y = NoiseUtils.Splerp(ref noiseStruct.splerp, 0f, 1f, t0.y);
 			//t0.z = NoiseUtils.Splerp(ref noiseStruct.splerp, 0f, 1f, t0.z);
+			
+			//Compute the dropoff
 			t0.x = NoiseUtils.SmootherStep(t0.x);
 			t0.y = NoiseUtils.SmootherStep(t0.y);
 			t0.z = NoiseUtils.SmootherStep(t0.z);

@@ -99,6 +99,20 @@
 		{
 			NoisePropertyBlock.SetTexture("_Splerp", noiseStruct.splerpTexture);
 			NoisePropertyBlock.SetTexture("_PerlinHash", NoiseUtils.PerlinHashTexture);
+			switch (noiseStruct.renderType)
+			{
+				case RenderType.Render1D:
+					NoisePropertyBlock.SetTexture("_Gradients", NoiseUtils.Gradients1DTexture);
+					break;
+				case RenderType.Render2D:
+					NoisePropertyBlock.SetTexture("_Gradients", NoiseUtils.Gradients2DTexture);
+					break;
+				case RenderType.Render3D:
+					NoisePropertyBlock.SetTexture("_Gradients", NoiseUtils.Gradients3DTexture);
+					break;
+				default:
+					throw new ArgumentOutOfRangeException("noiseStruct", noiseStruct.renderType, "Given RenderType not supported.");
+			}
 			// TODO: worldTransform does not contain proper object position... why?
 			NoisePropertyBlock.SetMatrix("_WorldTransform",
 				noiseStruct.worldTransform ? noiseStruct.worldTransform.localToWorldMatrix : Matrix4x4.identity);

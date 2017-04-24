@@ -91,6 +91,31 @@ public static class NoiseUtils
 	{
 		1f, -1f
 	};
+	private static Texture2D m_gradients1DTexture;
+	public static Texture2D Gradients1DTexture
+	{
+		get
+		{
+			if (m_gradients1DTexture == null)
+			{
+				m_gradients1DTexture = new Texture2D(Gradients1D.Length, 1, TextureFormat.RGBAFloat, false)
+				{
+					name = "Gradients1DTexture",
+					filterMode = FilterMode.Point,
+					wrapMode = TextureWrapMode.Repeat,
+					anisoLevel = 0
+				};
+				var colors = new Color[Gradients1D.Length];
+				for (int i = 0; i < Gradients1D.Length; i++)
+				{
+					colors[i] = new Color(Gradients1D[i], 255, 255, 255);
+				}
+				m_gradients1DTexture.SetPixels(colors);
+				m_gradients1DTexture.Apply();
+			}
+			return m_gradients1DTexture;
+		}
+	}
 
 	public static readonly int GradientsMask2D = 7;
 	public static readonly Vector2[] Gradients2D =
@@ -104,6 +129,31 @@ public static class NoiseUtils
 		new Vector2(1f, -1f).normalized,
 		new Vector2(-1f, -1f).normalized
 	};
+	private static Texture2D m_gradients2DTexture;
+	public static Texture2D Gradients2DTexture
+	{
+		get
+		{
+			if (m_gradients2DTexture == null)
+			{
+				m_gradients2DTexture = new Texture2D(Gradients2D.Length, 1, TextureFormat.RGBAFloat, false)
+				{
+					name = "Gradients2DTexture",
+					filterMode = FilterMode.Point,
+					wrapMode = TextureWrapMode.Repeat,
+					anisoLevel = 0
+				};
+				var colors = new Color[Gradients2D.Length];
+				for (int i = 0; i < Gradients2D.Length; i++)
+				{
+					colors[i] = new Color(Gradients2D[i].x, Gradients2D[i].y, 255, 255);
+				}
+				m_gradients2DTexture.SetPixels(colors);
+				m_gradients2DTexture.Apply();
+			}
+			return m_gradients2DTexture;
+		}
+	}
 
 	public static readonly int GradientsMask3D = 15;
 	public static readonly Vector3[] Gradients3D =
@@ -126,4 +176,29 @@ public static class NoiseUtils
 		new Vector3(0f, -1f, 1f),
 		new Vector3(0f, -1f, -1f)
 	};
+	private static Texture2D m_gradients3DTexture;
+	public static Texture2D Gradients3DTexture
+	{
+		get
+		{
+			if (m_gradients3DTexture == null)
+			{
+				m_gradients3DTexture = new Texture2D(Gradients3D.Length, 1, TextureFormat.RGBAFloat, false)
+				{
+					name = "Gradients3DTexture",
+					filterMode = FilterMode.Point,
+					wrapMode = TextureWrapMode.Repeat,
+					anisoLevel = 0
+				};
+				var colors = new Color[Gradients3D.Length];
+				for (int i = 0; i < Gradients3D.Length; i++)
+				{
+					colors[i] = new Color(Gradients3D[i].x, Gradients3D[i].y, Gradients3D[i].z, 255);
+				}
+				m_gradients3DTexture.SetPixels(colors);
+				m_gradients3DTexture.Apply();
+			}
+			return m_gradients3DTexture;
+		}
+	}
 }
