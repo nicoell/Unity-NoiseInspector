@@ -55,10 +55,11 @@ public class NoiseDisplayEditor : Editor
 			EditorGUILayout.PrefixLabel("Wave Length");
 			EditorGUILayout.FloatField(m_noiseDisplay.waveLength);
 			EditorGUILayout.EndHorizontal();
-			EditorGUILayout.BeginHorizontal();
-			EditorGUILayout.PrefixLabel("Computation Time (in ms)");
-			EditorGUILayout.LongField(m_noiseDisplay.computationTime);
-			EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.PrefixLabel("Computation Time (in ms)");
+            EditorGUILayout.LongField(m_noiseDisplay.computationTime);
+            EditorGUILayout.EndHorizontal();
+
 			EditorGUI.indentLevel--;
 		}
 

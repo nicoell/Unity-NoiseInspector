@@ -40,6 +40,7 @@ namespace Noise
 				{
 					var point = Vector3.Lerp(point0, point1, (x + 0.5f) * stepSize);
 					var color = Color.white * noiseStruct.noiseModel.Value(point * resolution, noiseStruct);
+                    color.a = 1f;
 					colors[y * resolution + x] = color;
 				}
 			}

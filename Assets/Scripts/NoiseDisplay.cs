@@ -51,6 +51,8 @@ public class NoiseDisplay : MonoBehaviour
 	public float waveLength = 1f;
 	[HideInInspector]
 	public long computationTime;
+    [HideInInspector]
+    public string debugPlotData;
 
 	#endregion
 
@@ -194,6 +196,15 @@ public class NoiseDisplay : MonoBehaviour
 	{
 		byte[] bytes = CpuNoiseTexture.EncodeToPNG();
 		File.WriteAllBytes(Application.dataPath + "/../NoiseOutput.png", bytes);
+
+        // Write adjusted values of first row of texture in debugPlotData string
+        debugPlotData = "";
+        for(int i = 0; i< CpuNoiseTexture.width; i++)
+        {
+            debugPlotData += ((CpuNoiseTexture.GetPixel(i, 0).r - 0.5f) * 2).ToString("F2") + System.Environment.NewLine; 
+        }
+        File.WriteAllText(Application.dataPath + "/../debugPlotData.txt", debugPlotData);
+        
 	}
 
 	private void MakeRenderPixelPerfect()
