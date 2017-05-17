@@ -42,10 +42,7 @@ public static class NoiseUtils
 	}
 
 
-	public static float SmootherStep(float t)
-	{
-		return t * t * t * (t * (t * 6f - 15f) + 10f);
-	}
+	public static float SmootherStep(float t) { return t * t * t * (t * (t * 6f - 15f) + 10f); }
 
 	public static readonly float Sqr2 = Mathf.Sqrt(2f);
 
@@ -201,4 +198,8 @@ public static class NoiseUtils
 			return m_gradients3DTexture;
 		}
 	}
+
+	public static readonly int[] Tn = new int[8] {
+		0x15, 0x38, 0x32, 0x2c, 0x0d, 0x13, 0x07, 0x2a
+	};
 }
