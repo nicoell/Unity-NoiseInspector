@@ -14,7 +14,7 @@ public class NoiseDisplay : MonoBehaviour
 	[Header("Basic Settings")]
 	public RenderType renderType = RenderType.Render2D;
 	public Range range = Range.OneGreaterZero;
-	[Range(1, 512)]
+	[Range(1, 2048)]
 	public int resolution = 512;
 	[Space(5)]
 
@@ -214,7 +214,8 @@ public class NoiseDisplay : MonoBehaviour
 		var cpuTransformLocalScale = cpuRenderTarget.transform.localScale;
 		cpuTransformLocalScale.x = CpuNoiseTexture.width / scale;
 		cpuTransformLocalScale.y = CpuNoiseTexture.height / scale;
-		cpuRenderTarget.transform.localScale = cpuTransformLocalScale;
+        cpuTransformLocalScale.z = CpuNoiseTexture.height / scale;
+        cpuRenderTarget.transform.localScale = cpuTransformLocalScale;
 		gpuRenderTarget.transform.localScale = cpuTransformLocalScale;
 	}
 }

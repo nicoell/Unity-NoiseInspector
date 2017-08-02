@@ -41,6 +41,7 @@ namespace Noise.Model
 			//Calculate Integer Lattice Points and interpolants t
 			int i0X = Mathf.FloorToInt(point.x);
 			int i0Y = Mathf.FloorToInt(point.y);
+
 			var t0 = new Vector2(point.x - i0X, point.y - i0Y);
 			var t1 = new Vector2(t0.x - 1f, t0.y - 1f);
 			i0X &= NoiseUtils.HashMask;

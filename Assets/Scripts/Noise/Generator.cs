@@ -31,6 +31,9 @@ namespace Noise
 
 			var stopwatch = Stopwatch.StartNew();
 
+			var min = float.MaxValue;
+			var max = float.MinValue;
+
 			var colors = new Color32[resolution * resolution];
 			for (int y = 0; y < resolution; y++)
 			{
@@ -39,11 +42,15 @@ namespace Noise
 				for (int x = 0; x < resolution; x++)
 				{
 					var point = Vector3.Lerp(point0, point1, (x + 0.5f) * stepSize);
-					var color = Color.white * noiseStruct.noiseModel.Value(point * resolution, noiseStruct);
+					var noise = noiseStruct.noiseModel.Value(point * resolution, noiseStruct);
+					min = Mathf.Min(min, noise);
+					max = Mathf.Max(max, noise);
+					var color = Color.white * noise;
                     color.a = 1f;
 					colors[y * resolution + x] = color;
 				}
 			}
+			//UnityEngine.Debug.Log("Noise Value Min: " + min + "Max: " + max);
 			texture2D.SetPixels32(colors);
 
 			stopwatch.Stop();

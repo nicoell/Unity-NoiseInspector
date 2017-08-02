@@ -87,7 +87,7 @@
 			float4 frag(VertexOutput IN) : SV_Target
 			{
 				//Calculate Integer Lattice Points and interpolants t
-				float3 i0 = floor(IN.uvw);
+				float3 i0 = fmod(floor(IN.uvw),256.0);
 				float3 i1 = i0 + 1;
 				float3 t0 = IN.uvw - i0;
 				float3 t1 = t0 - 1;
